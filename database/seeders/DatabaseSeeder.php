@@ -16,10 +16,16 @@ class DatabaseSeeder extends Seeder
     {
 
         User::query()->create([
-            'name' => 'reza',
+            'nama_depan' => 'reza',
+            'nama_belakang' => 'ghiyats',
+            'jabatan' => 'CTO',
             'email' => 'rezaghiyats@gmail.com',
             'password' => Hash::make('password'),
 
         ]);
+
+        // $this->call([
+        //     CategorySeeder::class,
+        // ]);
     }
 }

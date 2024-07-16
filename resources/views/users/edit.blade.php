@@ -5,30 +5,25 @@
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
-                        <div class="mb-3">
-                            <label for="name-first" class="form-label">Nama Depan</label>
-                            <input type="text" class="form-control" id="name-first" placeholder="Masukkan nama depan">
-                        </div>
-                        <div class="mb-3">
-                            <label for="name-last" class="form-label">Nama Belakang</label>
-                            <input type="text" class="form-control" id="name-last"
-                                placeholder="Masukkan nama belakang">
-                        </div>
-                        <div class="mb-3">
-                            <label for="jabatan" class="form-label">Jabatan</label>
-                            <input type="text" class="form-control" id="jabatan" placeholder="Masukkan jabatan">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Masukkan email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Masukkan password">
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-success">Simpan</button>
-                        </div>
+                        <form action="{{ route('users.update', ['user' => $user->id]) }}" method="post">
+                            @csrf
+                            @method('put')
+                            <x-text-input label="Nama Depan" name="firstName" placeholder="Masukkan Nama Depan"
+                                value="{{ old('firstName', $user->nama_depan) }}"></x-text-input>
+                            <x-text-input label="Nama Belakang" name="lastName" placeholder="Masukkan Nama Belakang"
+                                value="{{ old('lastName', $user->nama_belakang) }}"></x-text-input>
+                            <x-text-input label="Jabatan" name="jabatan" placeholder="Masukkan Jabatan"
+                                value="{{ old('jabatan', $user->jabatan) }}"></x-text-input>
+                            <x-text-input label="email" name="email" placeholder="Masukkan email"
+                                value="{{ old('email', $user->email) }}"></x-text-input>
+                            <x-text-input label="password" name="password" placeholder="Masukkan password"
+                                value="{{ old('password', $user->password) }}"></x-text-input>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('users.index') }}" class="btn btn-danger">Batal</a>
+                                <button type="submit" class="btn btn-success">Simpan</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -2,23 +2,23 @@
     <x-slot:title>Tambah Category</x-slot:title>
 
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('category.store') }}" method="POST">
+                        <form action="{{ route('categories.store') }}" method="post">
                             @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama</label>
-                                <input type="text" name="name" class="form-control" id="name"
-                                    placeholder="Masukkan nama category">
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" name="status" type="checkbox" role="switch"
-                                    id="active" checked>
+                            <x-text-input label="Nama" name="name" placeholder="Masukkan nama category"
+                                value="{{ old('name') }}"></x-text-input>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="active"
+                                    name="active" @checked(!old() || old('active') == 'on')>
                                 <label class="form-check-label" for="active">Aktif</label>
                             </div>
-                            <div class="d-flex justify-content-end">
+
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('categories.index') }}" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-dark">Simpan</button>
                             </div>
                         </form>

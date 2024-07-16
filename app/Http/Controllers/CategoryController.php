@@ -10,10 +10,19 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('status', 'desc')->get();
-        return view('category.index', ['categories' => $categories]);
+        $query = Category::query();
+
+        if ($request->search) {
+            $query->where('name', 'like', "%{$request->search}%");
+        }
+
+        $categories = $query->orderBy('active', 'desc')->paginate(5);
+
+        return view('category.index', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -30,15 +39,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
         ]);
-        $status = $request->has('status') ? true : false;
 
         $category = new Category();
         $category->name = $request->name;
-        $category->status = $status;
+        $category->active = $request->active == 'on';
         $category->save();
-        return redirect()->route('category.index');
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category berhasil ditambahkan!');
     }
 
     /**
@@ -54,7 +65,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('category.edit', ['category' => $category]);
+        return view('category.edit', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -63,13 +76,16 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
         ]);
-        $status = $request->has('status') ? true : false;
+
         $category->name = $request->name;
-        $category->status = $status;
+        $category->active = $request->active == 'on';
         $category->save();
-        return redirect()->route('category.index');
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category berhasil diperbarui!');
     }
 
     /**
@@ -77,6 +93,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category berhasil dihapus!');
     }
 }
