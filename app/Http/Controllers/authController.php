@@ -21,8 +21,15 @@ class authController extends Controller
             $request->session()->regenerate();
             return redirect('/');
         }
-        return back() -> withErrors([
+        return back()->withErrors([
             'email' => 'Email atau Password tidak sesuai',
         ])->onlyInput('email');
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->invalidate();
+
+        return redirect('login');
     }
 }

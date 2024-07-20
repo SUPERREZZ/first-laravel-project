@@ -33,7 +33,7 @@
     <div class="full d-flex justify-content-center align-items-center">
         <div class="login-card card">
             <div class="card-body">
-                <form action="/login" method="POST" novalidate>
+                <form action="{{ route('login') }}" method="POST" novalidate>
                     @csrf
                     <h4 class="fw-bold">Cashed</h4>
                     <div class="mb-3">Masukkan detail akun anda untuk memulai</div>

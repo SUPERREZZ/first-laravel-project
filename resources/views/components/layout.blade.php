@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -29,8 +31,9 @@
                         href="{{ route('dashboard') }}">
                         Dashboard
                     </a>
-                    <a class="nav-link" href="#">
-                        Order
+                    <a class="nav-link {{ request()->routeIs('orders.index') ? 'active' : '' }}"
+                        href="{{ route('orders.index') }}">
+                        Orders
                     </a>
                     <a class="nav-link {{ request()->routeIs('categories.index') ? 'active' : '' }}"
                         href="{{ route('categories.index') }}">
@@ -46,13 +49,17 @@
                     </a>
                 </div>
             </div>
+            <div class="text-white me-2">{{ auth()->user()->nama_depan }}</div>
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
         </div>
     </nav>
 
     @isset($title)
-        <div class="mx-5 border-bottom mb-3 d-flex justify-content-between align-items-center">
-            <h2 class=" py-4 px-3 fw-bold">{{ $title }}</h2>
-            <h4>{{ request()->user()->nama_depan }}</h4>
+        <div class=" border-bottom mb-3 px-3 d-flex justify-content-between align-items-center">
+            <h2 class=" py-3 px-5 fw-bold">{{ $title }}</h2>
         </div>
     @endisset
 

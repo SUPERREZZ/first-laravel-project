@@ -20,7 +20,7 @@ class UserController extends Controller
         }
         $query->orderByRaw("FIELD(jabatan, 'Eksekutif', 'Manajemen','Supervisi','Staff')");
 
-        $users = $query->paginate(5);
+        $users = $query->get();
 
         return view('users.index', [
             'users' => $users,

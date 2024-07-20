@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Category;
-use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
@@ -14,12 +12,19 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        // $faker = Faker::create();
-        // for ($i = 0; $i < 100; $i++) {
-        //     Category::create([
-        //         'name' => $faker->word,
-        //         'active' => $faker->boolean,
-        //     ]);
-        // }
+        Category::query()->create([
+            'name' => 'Snack',
+            'active' => 1,
+        ]);
+
+        Category::query()->create([
+            'name' => 'Beverage',
+            'active' => 0,
+        ]);
+
+        Category::query()->create([
+            'name' => 'Main Course',
+            'active' => 1,
+        ]);
     }
 }

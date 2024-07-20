@@ -14,7 +14,7 @@
                     value="{{ request()->search }}">
                 <button type="submit" class="btn btn-dark">Cari</button>
             </form>
-            <a href="{{ route('categories.index') }}" class="btn btn-dark">Tambah</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-dark">Tambah</a>
         </div>
 
         <div class="card overflow-hidden">
